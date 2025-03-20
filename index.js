@@ -16,10 +16,11 @@ const eventDescription = document.querySelector('#eventDescription')
 const eventDate = document.querySelector('#eventDate')
 const eventLocation = document.querySelector('#eventLocation')
 
+
+
 const formatDate = (dateString) => {
     const date = new Date(dateString)
     return date.toISOString()
-
 }
 
 //render a function
@@ -96,7 +97,7 @@ const postNewEvent = async (newEvent) => {
             body: JSON.stringify(newEvent),
         })
             const result = await response.json();
-            console.log('New event created:', result)
+            console.log('New event created:', result);
             // state.newEvent = result.data
 
     }catch(error){
@@ -110,10 +111,10 @@ const submitEvent = async (event) => {
     event.preventDefault();
 
     const newEvent = {
-        name: eventName.value,
-        description: eventDescription.value,
-        date: eventDate.value,
-        location: eventLocation.value,
+        name: eventName.value.trim(),
+        description: eventDescription.value.trim(),
+        date: new Date(eventDate.value).toISOString(), 
+        location: eventLocation.value.trim(),
     };
     console.log(newEvent)
     await postNewEvent(newEvent)
@@ -121,7 +122,6 @@ const submitEvent = async (event) => {
 }
 
 eventForm.addEventListener('submit', submitEvent);
-
 
 
 //Delete event using `DELETE'
